@@ -28,13 +28,11 @@ function repeater(str, options) {
     let additionSeparator=options.additionSeparator?options.additionSeparator:'|';
     let optionsAddition = (options.addition==='undefined')?'':options.addition;
     additionSeparator=optionsAddition?additionSeparator:'';
-    console.log(optionsAddition)
     for(let i=0;i<(options.additionRepeatTimes||1);i++) {
       str=`${str}${optionsAddition}${additionSeparator}`;
 
     }
-    console.log(str.substr(0, str.length-(additionSeparator.length || 0)));
-    return str= str.substr(0, str.length-(additionSeparator.length || 0));
+      return str= str.substr(0, str.length-(additionSeparator.length || 0));
   }
   getStr();
   let separator;
@@ -43,10 +41,6 @@ function repeater(str, options) {
   }
   return result.substr(0, result.length-(separator.length || 0))
 }
-const objWithSpecificCoercion = {
-  [Symbol.toPrimitive]: hint => hint !== 'number' ? 'STRING_OR_DEFAULT' : 'NUMBER'
-};
-
 
 module.exports = {
   repeater
