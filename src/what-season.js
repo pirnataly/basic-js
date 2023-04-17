@@ -13,15 +13,14 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function getSeason(date) {
   try {
-
     let dateParse = Date.parse(date);
-    let newDate=new Date(dateParse);
+    let newDate = new Date(dateParse);
     let month = newDate.getMonth();
-    switch(month) {
+    switch (month) {
       case 0:
       case 1:
       case 11:
-        return  'winter';
+        return 'winter';
 
       case 2:
       case 3:
@@ -39,19 +38,34 @@ function getSeason(date) {
         return 'autumn';
 
     }
-    if(!date) {
-      throw new SyntaxError('Unable to determine the time of year!');
+
+
+    if (!date) {
+      let err = new SyntaxError('Unable to determine the time of year!');
+      throw err;
     }
-     if(Number.isNaN(dateParse) ) {
-      throw new SyntaxError('Invalid date!')
+    if (Number.isNaN(dateParse)) {
+      let err = new Error('Invalid date!');
+      throw err;
     }
+
   }
-  catch(err) {
-    return (err.message)
-  }
+    catch(err) {
+    if (err.name==='SyntaxError') {
+      return (err.message);
+    }else {
+      throw err;
+    }
+    try{
+      getSeason(date)
+    }
+    catch(err){
+      return err.message;
+    }
+    }
+
 
 }
-
 module.exports = {
   getSeason
 };
