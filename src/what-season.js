@@ -16,17 +16,31 @@ function getSeason(date) {
     let dateParse = Date.parse(date);
     let newDate = new Date(dateParse);
     let month = newDate.getMonth();
+       if (!date) {
+           let err = new SyntaxError('Unable to determine the time of year!');
+      throw err;
+    }
+
+    if (!(date.toString === Date.prototype.toString)){
+      let err = new Error('Invalid date!');
+      throw err;
+    }
+
+    if (Number.isNaN(dateParse)) {
+
+      let err = new Error('Invalid date!');
+      throw err;
+    }
+    console.log('switch case')
     switch (month) {
       case 0:
       case 1:
       case 11:
         return 'winter';
-
       case 2:
       case 3:
       case 4:
         return 'spring';
-
       case 5:
       case 6:
       case 7:
@@ -36,20 +50,8 @@ function getSeason(date) {
       case 9:
       case 10:
         return 'autumn';
-
     }
-
-
-    if (!date) {
-      let err = new SyntaxError('Unable to determine the time of year!');
-      throw err;
     }
-    if (Number.isNaN(dateParse)) {
-      let err = new Error('Invalid date!');
-      throw err;
-    }
-
-  }
     catch(err) {
     if (err.name==='SyntaxError') {
       return (err.message);
